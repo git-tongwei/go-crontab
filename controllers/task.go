@@ -109,6 +109,8 @@ func (this *TaskController) Add() {
 		task.CronSpec = strings.TrimSpace(this.GetString("cron_spec"))
 		task.Command = strings.TrimSpace(this.GetString("command"))
 		task.Timeout, _ = this.GetInt("timeout")
+		task.Notify, _ = this.GetInt("notify")
+		task.NotifyEmail = strings.TrimSpace(this.GetString("notify_email"))
 
 		if task.TaskName == "" || task.CronSpec == "" || task.Command == "" {
 			this.ajaxMsg("请填写完整信息", MSG_ERR)
@@ -151,6 +153,8 @@ func (this *TaskController) Edit() {
 		task.CronSpec = strings.TrimSpace(this.GetString("cron_spec"))
 		task.Command = strings.TrimSpace(this.GetString("command"))
 		task.Timeout, _ = this.GetInt("timeout")
+		task.Notify, _ = this.GetInt("notify")
+		task.NotifyEmail = strings.TrimSpace(this.GetString("notify_email"))
 		if task.TaskName == "" || task.CronSpec == "" || task.Command == "" {
 			this.ajaxMsg("请填写完整信息", MSG_ERR)
 		}

@@ -91,3 +91,7 @@ func GetTaskServerById(id int) (*TaskServer, error) {
 	}
 	return obj, nil
 }
+func DelTaskServerById(id int) error {
+	_, err := orm.NewOrm().QueryTable(TableName("task_server")).Filter("id", id).Delete()
+	return err
+}

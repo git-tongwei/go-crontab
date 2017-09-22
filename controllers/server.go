@@ -98,3 +98,31 @@ func (this *ServerController) Edit() {
 	this.Data["server"] = server
 	this.display()
 }
+func (this *ServerController) Batch() {
+	action := this.GetString("action")
+	ids := this.GetStrings("ids")
+	if len(ids) < 1 {
+		this.ajaxMsg("请选择要操作的项目", MSG_ERR)
+	}
+
+	for _, v := range ids {
+		id, _ := strconv.Atoi(v)
+		if id < 1 {
+			continue
+		}
+		switch action {
+		case "delete":
+			//查询服务器是否被占用
+			filters := make([]interface{}, 0)
+			filters = append(filters, "server_id", id)
+			_, count := models.TaskGetList(1, 1000, filters...)
+			if count > 0 {
+				this.ajaxMsg("请先解除该服务器的任务占用", MSG_ERR)
+			} else {
+				models.DelTaskServerById(id)
+			}
+		}
+	}
+
+	this.ajaxMsg("", MSG_OK)
+}
