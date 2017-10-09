@@ -190,7 +190,7 @@ func (this *MainController) Login() {
 	d := struct {
 		CaptchaId string
 	}{
-		captcha.NewLen(4),
+		captcha.New(),
 	}
 	this.Data["CaptchaId"] = d.CaptchaId
 	this.TplName = "public/login.html"
