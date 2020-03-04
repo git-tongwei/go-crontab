@@ -31,6 +31,7 @@ func (this *TaskController) List() {
 	}
 
 	filters := make([]interface{}, 0)
+
 	if groupId > 0 && groupId != 99 {
 		filters = append(filters, "group_id", groupId)
 	}
